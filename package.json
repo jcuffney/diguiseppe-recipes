@@ -7,7 +7,8 @@
     "init:hard": "rm -rf node_modules && npm i",
     "start": "node src/index.js",
     "lint": "eslint src/**/*",
-    "lint:fix": "eslint src/**/* --fix"
+    "lint:fix": "eslint src/**/* --fix",
+    "test": "mocha ./src/**/*.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.2"
   }
 }
