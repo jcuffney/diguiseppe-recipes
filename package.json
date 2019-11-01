@@ -8,8 +8,10 @@
     "start": "node src/index.js",
     "lint": "eslint src/**/*",
     "lint:fix": "eslint src/**/* --fix",
-    "test": "nyc --check-coverage mocha ./src/**/*.test.js",
-    "test:watch": "mocha ./src/**/*.test.js --watch"
+    "test": "mocha ./src/**/*.test.js",
+    "test:watch": "mocha ./src/**/*.test.js --watch",
+    "cover": "nyc --check-coverage npm test",
+    "cover:report": "npm test && xdg-open ./coverage/index.html"
   },
   "author": "",
   "license": "ISC",
@@ -25,5 +27,22 @@
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
     "nyc": "^14.1.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "branches": 0,
+    "lines": 0,
+    "functions": 0,
+    "statements": 0
   }
 }
