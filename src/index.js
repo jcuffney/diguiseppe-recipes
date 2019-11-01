@@ -21,7 +21,7 @@ const typeDefs = gql`
   # Queries
   type Query {
     recipes: [Recipe]
-    recipe: Recipe
+    recipe(id: ID!): Recipe
   }
 
   # Mutations
@@ -36,7 +36,11 @@ const DATA_PATH = './data/recipes.json';
 const resolvers = {
   Query: {
     recipes: () => readFile(DATA_PATH),
-    recipe: id => {},
+    recipe: (_, args) => {
+      const id = R.prop('id', args);
+      const recipes = readFile(DATA_PATH);
+      return R.find(R.propEq('id', id), recipes);
+    },
   },
   Mutation: {
     createRecipe: (_, args) => {
@@ -53,6 +57,7 @@ const resolvers = {
       console.log('deleting recipe', id)
       const recipes = readFile(DATA_PATH);
       const upadtedRecipes = R.filter(R.propEq('id', id), recipes);
+      console.log(recipes, upadtedRecipes);
       writeFile(DATA_PATH, upadtedRecipes);
       return id;
     }

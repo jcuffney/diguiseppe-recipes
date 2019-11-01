@@ -6,9 +6,9 @@ const readFile = path => {
     return JSON.parse(data);
 }
 
-const writeFile = (path, data, format = false) => {
+const writeFile = (path, data) => {
     try {
-        fs.writeFileSync(path, JSON.stringify(data, null, (format ? 2 : 0)));
+        fs.writeFileSync(path, JSON.stringify(data, null, 2));
         return true;
     } catch(error) {
         return false;
