@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init:hard": "rm -rf node_modules && npm i",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "lint": "eslint src/**/*",
+    "lint:fix": "eslint src/**/* --fix"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +16,10 @@
     "graphql": "^14.5.8",
     "ramda": "^0.26.1",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
   }
 }

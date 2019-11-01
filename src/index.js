@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server');
-const { readFile, writeFile, uuid } = require('./lib');
 const R = require('ramda');
+const { readFile, writeFile, uuid } = require('./lib');
 
 const typeDefs = gql`
   # Recipe
@@ -44,24 +44,21 @@ const resolvers = {
   },
   Mutation: {
     createRecipe: (_, args) => {
-      console.log('creating recipe', args);
       const recipes = readFile(DATA_PATH);
       const newRecipe = R.pipe(
-        R.set(R.lensProp('id'), uuid())
+        R.set(R.lensProp('id'), uuid()),
       )(R.prop('input', args));
       writeFile(DATA_PATH, R.append(newRecipe, recipes));
       return newRecipe;
     },
     deleteRecipe: (_, args) => {
-      const id = R.path(['input', 'id'], args)
-      console.log('deleting recipe', id)
+      const id = R.path(['input', 'id'], args);
       const recipes = readFile(DATA_PATH);
       const upadtedRecipes = R.filter(R.propEq('id', id), recipes);
-      console.log(recipes, upadtedRecipes);
       writeFile(DATA_PATH, upadtedRecipes);
       return id;
-    }
-  }
+    },
+  },
 };
 
 const server = new ApolloServer({
@@ -69,7 +66,4 @@ const server = new ApolloServer({
   resolvers,
 });
 
-server.listen()
-  .then(({ url }) => {
-    console.log(`Server ready at ${ url }`);
-  });
+server.listen();
