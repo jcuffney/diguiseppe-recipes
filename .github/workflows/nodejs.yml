@@ -21,7 +21,7 @@ jobs:
       run: |
         npm ci
         npm run build --if-present
-        npm lint
-        npm cover
+        npm run lint
+        npm run cover
       env:
         CI: true
