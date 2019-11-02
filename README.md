@@ -1,5 +1,8 @@
 # Apollo Server
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/8dd418aba27d3dc3d8f8/maintainability)](https://codeclimate.com/github/jcuffney/recipes-apollo-server/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8dd418aba27d3dc3d8f8/test_coverage)](https://codeclimate.com/github/jcuffney/recipes-apollo-server/test_coverage)
+
 ## Requirements
 
 - nodejs (v12+)
@@ -26,9 +29,10 @@
 
 ## TODO:
 
+- deployment to AWS Lambda
 - integration with DataSources
   - DynamoDB
-- deployment to AWS Lambda
+  - Micro-service
 - lock down master branch
 - code climate (static analysis) on PR's
 - slack integration

@@ -19,9 +19,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
         npm ci
         npm run build --if-present
         npm run lint
         npm run cover
+        ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       env:
         CI: true
+        CODE_CLIMATE_TEST_REPORTER_ID: 433ef348297826ca08686cb4e8b5680402a1b24ebac0aa32d090d0b943b67d5f
