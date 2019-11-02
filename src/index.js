@@ -4,9 +4,10 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
 const awsServerlessExpress = require('aws-serverless-express')
 const R = require('ramda');
+const uuidv4 = require('uuid/v4');
 
 const { readFile, writeFile } = require('./lib/file');
-const uuidv4 = require('uuid/v4');
+const dataSources = require('./dataSources');
 
 const { NODE_ENV } = process.env;
 
@@ -74,6 +75,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources,
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
