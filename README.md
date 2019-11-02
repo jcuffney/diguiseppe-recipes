@@ -14,7 +14,6 @@
 - imporove test coverage
 - auto generated documentation
 - pagination
-- auto reload server
 - code climate (static analysis)
 - media uploads
 - logging
