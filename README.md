@@ -35,7 +35,6 @@
   - DynamoDB
   - Micro-service
 - lock down master branch
-- code climate (static analysis) on PR's
 - slack integration
 
 - pagination
