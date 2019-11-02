@@ -16,7 +16,5 @@
 - pagination
 - auto reload server
 - code climate (static analysis)
-- github issue template
-- github PR tempalte
 - media uploads
 - express
