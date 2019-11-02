@@ -16,10 +16,7 @@ const gateway = new ApolloGateway({
 
 (async () => {
   const { schema, executor } = await gateway.load();
-
   const server = new ApolloServer({ schema, executor });
-
   server.applyMiddleware({ app, path: '/graphql' });
-
   app.listen({ port: PORT });
 })();
