@@ -29,4 +29,4 @@ jobs:
         ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       env:
         CI: true
-        CODE_CLIMATE_TEST_REPORTER_ID: 433ef348297826ca08686cb4e8b5680402a1b24ebac0aa32d090d0b943b67d5f
+        CC_TEST_REPORTER_ID: 433ef348297826ca08686cb4e8b5680402a1b24ebac0aa32d090d0b943b67d5f
