@@ -11,6 +11,7 @@ const app = express();
 const gateway = new ApolloGateway({
   serviceList: [
     { name: 'recipe', url: 'http://localhost:4001/graphql' },
+    { name: 'user', url: 'http://localhost:4002/graphql' },
   ],
 });
 
