@@ -1,4 +1,5 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server-express');
+const express = require('express');
 const R = require('ramda');
 const { readFile, writeFile, uuid } = require('./lib');
 
@@ -61,9 +62,15 @@ const resolvers = {
   },
 };
 
+const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-server.listen();
+server.applyMiddleware({ app, path: '/graphql' });
+
+app.listen({
+  port: 4000
+});

@@ -17,4 +17,4 @@
 - auto reload server
 - code climate (static analysis)
 - media uploads
-- express
+- logging
