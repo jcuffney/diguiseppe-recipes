@@ -27,25 +27,3 @@
 | npm run cover        | runes tests with instanbul coverage checks |
 | npm run cover:ci     | creates the lcov report that code climate reads from in CI |
 | npm run cover:report | opens coverage report |
-
-## TODO:
-
-- deployment to AWS Lambda
-- integration with DataSources
-  - DynamoDB
-  - Micro-service
-- lock down master branch
-- code climate (static analysis) on PR's
-- slack integration
-
-- pagination
-- Update operation
-- relay spec for id's type, uuid encoded
-- apollo gateway, federation
-- Authentication (okta)
-    - login query
-- media uploads
-
-- imporove test coverage
-- auto generated documentation
-- logging
