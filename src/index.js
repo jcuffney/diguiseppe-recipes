@@ -1,7 +1,13 @@
+require('dotenv').config()
+
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
+const awsServerlessExpress = require('aws-serverless-express')
 const R = require('ramda');
+
 const { readFile, writeFile, uuid } = require('./lib');
+
+const { NODE_ENV } = process.env;
 
 const typeDefs = gql`
   # Recipe
@@ -69,8 +75,16 @@ const server = new ApolloServer({
   resolvers,
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
+server.applyMiddleware({ app, path: '/' });
 
-app.listen({
-  port: 4000
-});
+
+if (NODE_ENV === 'production') {
+  const server = awsServerlessExpress.createServer(app)
+  const handler = (event, context) => awsServerlessExpress.proxy(server, event, context);
+  module.exports = {
+    handler,
+  };
+} else {
+  app.listen({ port: 4000 });
+}
+ 
