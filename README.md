@@ -25,6 +25,7 @@
 | npm run lint:fix     | runs eslint on all javascript files and automatically fixes what it can |
 | npm run init:hard    | removes `node_modules`, `package-lock.json` and reinstalls all packages |
 | npm run cover        | runes tests with instanbul coverage checks |
+| npm run cover:ci     | creates the lcov report that code climate reads from in CI |
 | npm run cover:report | opens coverage report |
 
 ## TODO:
