@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid/v4');
 const R = require('ramda');
-const { readFile, writeFile } = require('./../lib/file');
+const { readFile, writeFile } = require('../lib/file');
 
 const DATA_PATH = './data/recipes.json';
 

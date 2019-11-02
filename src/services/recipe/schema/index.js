@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   # Recipe
@@ -17,13 +17,13 @@ const typeDefs = gql`
   }
 
   # Queries
-  type Query {
+  extend type Query {
     recipes: [Recipe]
     recipe(id: ID!): Recipe
   }
 
   # Mutations
-  type Mutation {
+  extend type Mutation {
     createRecipe(input: RecipeInput): Recipe
     deleteRecipe(input: DeleteInput): String
   }
