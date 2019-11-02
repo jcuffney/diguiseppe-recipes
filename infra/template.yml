@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Recipe Service
+
+## #############################################################################
+## Parameters
+## #############################################################################
+
+Parameters:
+
+    FunctionName:
+        Type: String
+        Description: the name of the function
+        Default: recipe-apollo-server
+
+    FunctionRuntime:
+        Type: String
+        Description: lambda function runtime
+        Default: nodejs10.x
+
+    SourceBucket:
+        Type: String
+        Description: lambda function bucket name
+        Default: com.cuffney.recipe
+
+    SourceKey:
+        Type: String
+        Description: lambda function source key
+        Default: source.zip
+
+    Environment:
+        Type: String
+        Description: NODE_ENV lambda environment variable
+        Default: production
+
+## #############################################################################
+## Resources
+## #############################################################################
+
+Resources:
+
+    Lambda:
+        Type: AWS::Lambda::Function 
+        Properties:
+            FunctionName:
+              Ref: FunctionName
+            Runtime:
+              Ref: FunctionRuntime
+            Code:
+              S3Bucket:
+                Ref: SourceBucket
+              S3Key:
+                Ref: SourceKey
+            Timeout: 3
+            Handler: src/index.handler
+            Role: 
+                Fn::GetAtt: LambdaExecutionRole.Arn
+            Environment:
+                Variables:
+                    NODE_ENV:
+                        Ref: NODE_ENV
+            Tags:
+                - Key: Project
+                  Value: recipe
+                - Key: Stack
+                  Value: recipe-apollo-server
+                - Key: Environment
+                  Value: prod
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+    LambdaExecutionRole:
+        Type: AWS::IAM::Role
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                - Effect: Allow
+                  Principal:
+                    Service:
+                      - lambda.amazonaws.com
+                  Action:
+                    - sts:AssumeRole
+            Path: "/"
+            Policies:
+                - PolicyName: lambda-logging
+                  PolicyDocument:
+                    Version: '2012-10-17'
+                    Statement:
+                        - Effect: Allow
+                          Action:
+                            - logs:*
+                          Resource: arn:aws:logs:*:*:*
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html
+    ConfigLambdaPermission:
+        Type: "AWS::Lambda::Permission"
+        Properties:
+            Action: lambda:InvokeFunction
+            FunctionName: 
+                Ref: Lambda
+            Principal: apigateway.amazonaws.com
