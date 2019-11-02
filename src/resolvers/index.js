@@ -1,17 +1,17 @@
 const {
-    getRecipe,
-    getRecipes,
-    createRecipe,
-    deleteRecipe,
+  getRecipe,
+  getRecipes,
+  createRecipe,
+  deleteRecipe,
 } = require('./recipe');
 
 module.exports = {
-    Query: {
-        recipe: getRecipe,
-        recipes: getRecipes,
-    },
-    Mutation: {
-        createRecipe,
-        deleteRecipe,
-    },
+  Query: {
+    recipe: getRecipe,
+    recipes: getRecipes,
+  },
+  Mutation: {
+    createRecipe,
+    deleteRecipe,
+  },
 };

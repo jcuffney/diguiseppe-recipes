@@ -8,5 +8,5 @@ class RecipeService extends RESTDataSource {
 }
 
 module.exports = () => ({
-    recipeService: new RecipeService(),
-})
+  recipeService: new RecipeService(),
+});
