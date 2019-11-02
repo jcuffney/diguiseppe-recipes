@@ -1,5 +1,12 @@
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer } = require('apollo-server-express');
 const { buildFederatedSchema } = require('@apollo/federation');
+const express = require('express');
+
+require('dotenv').config();
+
+const { PORT } = process.env;
+
+const app = express();
 
 // const dataSources = require('./dataSources');
 const resolvers = require('./resolvers');
@@ -12,4 +19,6 @@ const server = new ApolloServer({
   }),
 });
 
-server.listen({ port: 4001 });
+server.applyMiddleware({ app, path: '/graphql' });
+
+app.listen({ port: PORT });

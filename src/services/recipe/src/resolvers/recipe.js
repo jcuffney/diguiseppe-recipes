@@ -2,7 +2,7 @@ const uuidv4 = require('uuid/v4');
 const R = require('ramda');
 const { readFile, writeFile } = require('../lib/file');
 
-const DATA_PATH = './data/recipes.json';
+const DATA_PATH = './src/data/recipes.json';
 
 const getRecipe = (_, args) => {
   const id = R.prop('id', args);
