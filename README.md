@@ -26,17 +26,21 @@
 
 ## TODO:
 
-- relay spec for id's type, uuid encoded
-- apollo gateway, federation
-- dockerize for local development
-- deployment to AWS Lambda
 - integration with DataSources
   - DynamoDB
-- Authentication
+- deployment to AWS Lambda
+- lock down master branch
+- code climate (static analysis) on PR's
+- slack integration
+
+- pagination
+- Update operation
+- relay spec for id's type, uuid encoded
+- apollo gateway, federation
+- Authentication (okta)
+    - login query
+- media uploads
+
 - imporove test coverage
 - auto generated documentation
-- pagination
-- code climate (static analysis)
-- media uploads
 - logging
-- Update operation

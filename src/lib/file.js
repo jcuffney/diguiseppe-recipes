@@ -1,5 +1,4 @@
 const fs = require('fs');
-const uuidv4 = require('uuid/v4');
 
 const readFile = (path) => {
   const data = fs.readFileSync(path);
@@ -15,15 +14,7 @@ const writeFile = (path, data) => {
   }
 };
 
-const uuid = () => uuidv4();
-
-const base64Encode = (str) => base64Encode(str);
-const base64Decode = (str) => base64Decode(str);
-
 module.exports = {
   readFile,
   writeFile,
-  uuid,
-  base64Encode,
-  base64Decode,
 };

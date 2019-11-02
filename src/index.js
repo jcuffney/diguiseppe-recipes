@@ -5,7 +5,8 @@ const express = require('express');
 const awsServerlessExpress = require('aws-serverless-express')
 const R = require('ramda');
 
-const { readFile, writeFile, uuid } = require('./lib');
+const { readFile, writeFile } = require('./lib/file');
+const uuidv4 = require('uuid/v4');
 
 const { NODE_ENV } = process.env;
 
@@ -53,7 +54,7 @@ const resolvers = {
     createRecipe: (_, args) => {
       const recipes = readFile(DATA_PATH);
       const newRecipe = R.pipe(
-        R.set(R.lensProp('id'), uuid()),
+        R.set(R.lensProp('id'), uuidv4()),
       )(R.prop('input', args));
       writeFile(DATA_PATH, R.append(newRecipe, recipes));
       return newRecipe;
@@ -75,7 +76,7 @@ const server = new ApolloServer({
   resolvers,
 });
 
-server.applyMiddleware({ app, path: '/' });
+server.applyMiddleware({ app, path: '/graphql' });
 
 
 if (NODE_ENV === 'production') {
@@ -87,4 +88,3 @@ if (NODE_ENV === 'production') {
 } else {
   app.listen({ port: 4000 });
 }
- 
