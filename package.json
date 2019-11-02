@@ -6,8 +6,8 @@
   "scripts": {
     "init:hard": "rm -rf node_modules && npm i",
     "start": "node src/index.js",
-    "lint": "eslint src/**/*",
-    "lint:fix": "eslint src/**/* --fix",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
     "test": "mocha ./src/**/*.test.js",
     "test:watch": "mocha ./src/**/*.test.js --watch",
     "cover": "nyc --check-coverage npm test",
