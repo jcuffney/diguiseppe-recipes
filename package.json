@@ -13,7 +13,8 @@
     "test": "mocha ./src/**/*.test.js",
     "test:watch": "mocha ./src/**/*.test.js --watch",
     "cover": "nyc --check-coverage npm test",
-    "cover:report": "npm test && xdg-open ./coverage/index.html"
+    "cover:ci": "nyc --check-coverage --reporter=text-lcov npm test > lcov.info",
+    "cover:report": "npm run cover && xdg-open ./coverage/index.html"
   },
   "author": "",
   "license": "ISC",
