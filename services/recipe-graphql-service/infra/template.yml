@@ -7,10 +7,15 @@ Description: Recipe Service
 
 Parameters:
 
+    TableName:
+        Type: String  
+        Description: the name of the database
+        Default: diguiseppe-recipes
+
     FunctionName:
         Type: String
         Description: the name of the function
-        Default: diguiseppe-recipes-graphql-service
+        Default: recipe-graphql-service
 
     FunctionRuntime:
         Type: String
@@ -20,7 +25,7 @@ Parameters:
     SourceBucket:
         Type: String
         Description: lambda function bucket name
-        Default: com.diguisepperecipes.graphql
+        Default: com.diguisepperecipes.recipe-graphql-service
 
     SourceKey:
         Type: String
@@ -73,6 +78,30 @@ Resources:
                           Action:
                             - logs:*
                           Resource: arn:aws:logs:*:*:*
+                        - Effect: Allow
+                          Action:
+                            - dynamodb:*
+                          Resource:
+                            Fn::GetAtt: Table.Arn
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
+    Table:                   
+        Type: AWS::DynamoDB::Table
+        Properties:
+            TableName: 
+                Ref: TableName
+            AttributeDefinitions:
+                - AttributeName: id
+                  AttributeType: S
+            KeySchema:
+                -
+                    AttributeName: id
+                    KeyType: HASH
+            ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
+            StreamSpecification:
+                StreamViewType: NEW_IMAGE
 
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html
     ConfigLambdaPermission:

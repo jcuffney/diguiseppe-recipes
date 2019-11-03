@@ -1,18 +1,4 @@
-# DiGuiseppe Recipe GraphQL Server
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/8dd418aba27d3dc3d8f8/maintainability)](https://codeclimate.com/github/jcuffney/recipes-apollo-server/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8dd418aba27d3dc3d8f8/test_coverage)](https://codeclimate.com/github/jcuffney/recipes-apollo-server/test_coverage)
-
-## Description
-
-This API implements Apollo Federation to distribute the data graph across micro-services.
-
-`api.diguisepperecipes.com/graphql`
-
-#### GraphQL Microservices
-- recipe-graphql-service
-- user-graphql-service
-- media-graphql-service
+# User GraphQL Service
 
 ## Requirements
 

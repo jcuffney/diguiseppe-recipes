@@ -1,31 +1,23 @@
-require('dotenv').config()
-
 const { ApolloServer } = require('apollo-server-express');
+const { ApolloGateway } = require('@apollo/gateway');
 const express = require('express');
-const awsServerlessExpress = require('aws-serverless-express')
 
-const dataSources = require('./dataSources');
-const resolvers = require('./resolvers');
-const { typeDefs } = require('./schema');
+require('dotenv').config();
 
-const { NODE_ENV } = process.env;
+const { PORT } = process.env;
 
 const app = express();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  dataSources,
+const gateway = new ApolloGateway({
+  serviceList: [
+    { name: 'recipe', url: 'http://localhost:4001/graphql' },
+    { name: 'user', url: 'http://localhost:4002/graphql' },
+  ],
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
-
-if (NODE_ENV === 'production') {
-  const server = awsServerlessExpress.createServer(app)
-  const handler = (event, context) => awsServerlessExpress.proxy(server, event, context);
-  module.exports = {
-    handler,
-  };
-} else {
-  app.listen({ port: 4000 });
-}
+(async () => {
+  const { schema, executor } = await gateway.load();
+  const server = new ApolloServer({ schema, executor });
+  server.applyMiddleware({ app, path: '/graphql' });
+  app.listen({ port: PORT });
+})();
