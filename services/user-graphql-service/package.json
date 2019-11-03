@@ -13,7 +13,7 @@
     "test": "mocha ./src/**/*.test.js",
     "test:watch": "mocha ./src/**/*.test.js --watch",
     "cover": "nyc --check-coverage npm test",
-    "cover:ci": "mkdir coverage && nyc --check-coverage --reporter=text-lcov npm test > coverage/lcov.info",
+    "cover:ci": "mkdir -p coverage && nyc --check-coverage --reporter=text-lcov npm test > coverage/lcov.info",
     "cover:report": "npm run cover && xdg-open ./coverage/index.html"
   },
   "author": "",
