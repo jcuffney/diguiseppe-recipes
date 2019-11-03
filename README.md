@@ -7,6 +7,8 @@
 
 This API implements Apollo Federation to distribute the data graph across micro-services.
 
+`api.diguisepperecipes.com/graphql`
+
 #### GraphQL Microservices
 - recipe-graphql-service
 - user-graphql-service
