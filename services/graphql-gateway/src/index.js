@@ -10,6 +10,15 @@ const serviceList = [
   { name: 'recipe', url: 'http://recipe_graphql:4001/' },
 ];
 
+const getUser = token => {
+  if (token !== 'Bearer test') return null;
+  return {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@gmail.com',
+  }
+}
+
 (async () => {
   const app = express();
   const gateway = new ApolloGateway({ serviceList });
@@ -21,11 +30,12 @@ const serviceList = [
     playground: true,
     context: ({ req }) => {
       const token = req.headers.authorization || '';
-      console.log(token);
-      const user = {};
+      const user = getUser(token);
+      if (!user) throw new Error('AuthenticationError: you must be logged in.');
       return { user };
     },
   });
   server.applyMiddleware({ app, path: '/graphql' });
+
   app.listen({ port: PORT });
 })();
