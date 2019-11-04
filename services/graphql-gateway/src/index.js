@@ -18,7 +18,13 @@ const serviceList = [
     schema,
     executor,
     introspection: true,
-    playground: true
+    playground: true,
+    context: ({ req }) => {
+      const token = req.headers.authorization || '';
+      console.log(token);
+      const user = {};
+      return { user };
+    },
   });
   server.applyMiddleware({ app, path: '/graphql' });
   app.listen({ port: PORT });

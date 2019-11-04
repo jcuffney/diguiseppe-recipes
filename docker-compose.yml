@@ -18,6 +18,9 @@ services:
   # Apollo GraphQL Gateway
   graphql:
     build: services/graphql-gateway
+    volumes:
+      - './services/graphql-gateway:/app'
+      - '/app/node_modules'
     depends_on:
       - recipe_graphql
     ports:
@@ -30,12 +33,24 @@ services:
   # Recipe GraphQL Micro-Service
   recipe_graphql:
     build: services/recipe-graphql-service
+    volumes:
+      - './services/recipe-graphql-service:/app'
+      - '/app/node_modules'
     ports:
       - '4001:4001'
     expose:
       - '4001'
     networks:
       - development-network
+
+  # recipe_table:
+  #   image: amazon/dynamodb-local:latest
+  #   ports:
+  #     - '8000:8080'
+  #   expose:
+  #     - 8000
+  #   networks:
+  #     - development-network
 
   # Nginx Reverse Proxy
   nginx:
