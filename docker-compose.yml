@@ -10,8 +10,6 @@ services:
     volumes:
       - './views/diguisepperecipes.com:/app'
       - '/app/node_modules'
-    # ports:
-    #   - '3000:3000'
     expose:
       - '3000'
     environment:
@@ -19,6 +17,7 @@ services:
     networks:
       - development-network
 
+  # Nginx Reverse Proxy
   nginx:
     image: nginx:latest
     container_name: development_nginx
@@ -31,6 +30,8 @@ services:
       - 443:443
     networks:
       - development-network
+    # logging:
+    #   driver: none
 
   # TODO: some sort of data store.
 
