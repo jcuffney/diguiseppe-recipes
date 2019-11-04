@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "ebbf4891-b193-440d-a0bd-7d2410b6ce6e",
+		"name": "DiGuiseppe Recipes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Recipe",
+			"item": [
+				{
+					"name": "Get All Recipes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n    recipes {\n        title\n        id\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetRecipe($id: ID!) {\n    recipe(id: $id) {\n        title\n    }\n}",
+								"variables": "{\n\t\"id\": \"35e8ce8a-3cb0-4d43-a41b-5ceffe5ec742\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteRecipe($input: DeleteInput)  {\n    deleteRecipe(input: $input) \n}",
+								"variables": "{\n\t\"input\": {\n\t\t\"id\": \"eeb1aeb8-6fa9-4d7f-b4fb-2cafe6e5d1133\"\n\t}\n}"
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createRecipe($input: RecipeInput)  {\n    createRecipe(input: $input) {\n        title\n    }\n}",
+								"variables": "{\n\t\"input\": {\n\t\t\"title\": \"test\"\n\t}\n}"
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
