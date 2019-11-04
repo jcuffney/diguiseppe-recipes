@@ -7,12 +7,27 @@
 
 This API implements Apollo Federation to distribute the data graph across micro-services.
 
-`api.diguisepperecipes.com/graphql`
+## Infrastrucutre
+
+This app was originally going to be done on AWS Lambdas.  Howevever for a number of reasons I've decided to completely dockerize everything. 
 
 #### GraphQL Microservices
 - recipe-graphql-service
 - user-graphql-service
 - media-graphql-service
+- gateway-service
+
+#### Static Media
+on filesystem
+
+#### Databases
+on image
+
+#### Server
+nginx reverse proxy
+
+#### FE
+static site (react)
 
 ## Requirements
 
