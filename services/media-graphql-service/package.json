@@ -1,0 +1,56 @@
+{
+  "name": "media-graphql-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init:hard": "rm -rf node_modules && npm i",
+    "build": "mkdir -p build && zip -rq build/source.zip src/*",
+    "start": "node src/index.js",
+    "dev": "nodemon node src/index.js",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "test": "mocha ./src/**/*.test.js",
+    "test:watch": "mocha ./src/**/*.test.js --watch",
+    "cover": "nyc --check-coverage npm test",
+    "cover:ci": "mkdir -p coverage && nyc --check-coverage --reporter=text-lcov npm test > coverage/lcov.info",
+    "cover:report": "npm run cover && xdg-open ./coverage/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/federation": "^0.10.2",
+    "apollo-datasource-rest": "^0.6.6",
+    "apollo-server-express": "^2.9.7",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "ramda": "^0.26.1",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.1.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "branches": 0,
+    "lines": 0,
+    "functions": 0,
+    "statements": 0
+  }
+}

@@ -1,0 +1,113 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Recipe Service
+
+## #############################################################################
+## Parameters
+## #############################################################################
+
+Parameters:
+
+    TableName:
+        Type: String  
+        Description: the name of the database
+        Default: diguiseppe-users
+
+    FunctionName:
+        Type: String
+        Description: the name of the function
+        Default: user-graphql-service
+
+    FunctionRuntime:
+        Type: String
+        Description: lambda function runtime
+        Default: nodejs10.x
+
+    SourceBucket:
+        Type: String
+        Description: lambda function bucket name
+        Default: com.diguisepperecipes.user-graphql-service
+
+    SourceKey:
+        Type: String
+        Description: lambda function source key
+        Default: source.zip
+
+## #############################################################################
+## Resources
+## #############################################################################
+
+Resources:
+
+    Lambda:
+        Type: AWS::Lambda::Function 
+        Properties:
+            FunctionName:
+              Ref: FunctionName
+            Runtime:
+              Ref: FunctionRuntime
+            Code:
+              S3Bucket:
+                Ref: SourceBucket
+              S3Key:
+                Ref: SourceKey
+            Timeout: 3
+            Handler: src/index.handler
+            Role: 
+                Fn::GetAtt: LambdaExecutionRole.Arn
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
+    LambdaExecutionRole:
+        Type: AWS::IAM::Role
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                - Effect: Allow
+                  Principal:
+                    Service:
+                      - lambda.amazonaws.com
+                  Action:
+                    - sts:AssumeRole
+            Path: "/"
+            Policies:
+                - PolicyName: lambda-logging
+                  PolicyDocument:
+                    Version: '2012-10-17'
+                    Statement:
+                        - Effect: Allow
+                          Action:
+                            - logs:*
+                          Resource: arn:aws:logs:*:*:*
+                        - Effect: Allow
+                          Action:
+                            - dynamodb:*
+                          Resource:
+                            Fn::GetAtt: Table.Arn 
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
+    Table:                   
+        Type: AWS::DynamoDB::Table
+        Properties:
+            TableName: 
+                Ref: TableName
+            AttributeDefinitions:
+                - AttributeName: id
+                  AttributeType: S
+            KeySchema:
+                -
+                    AttributeName: id
+                    KeyType: HASH
+            ProvisionedThroughput:
+                ReadCapacityUnits: 5
+                WriteCapacityUnits: 5
+            StreamSpecification:
+                StreamViewType: NEW_IMAGE
+
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html
+    ConfigLambdaPermission:
+        Type: "AWS::Lambda::Permission"
+        Properties:
+            Action: lambda:InvokeFunction
+            FunctionName: 
+                Ref: Lambda
+            Principal: apigateway.amazonaws.com
