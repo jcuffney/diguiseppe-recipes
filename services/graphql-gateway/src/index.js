@@ -5,6 +5,7 @@ const express = require('express');
 require('dotenv').config();
 
 const { PORT } = process.env;
+// TODO: throw error if PORT is missing
 
 const serviceList = [
   { name: 'recipe', url: 'http://recipe_graphql:4001/' },
@@ -31,7 +32,7 @@ const getUser = token => {
     context: ({ req }) => {
       const token = req.headers.authorization || '';
       const user = getUser(token);
-      if (!user) throw new Error('AuthenticationError: you must be logged in.');
+      if (!user) throw new Error('AuthenticationError: access denied.');
       return { user };
     },
   });

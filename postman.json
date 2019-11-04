@@ -43,6 +43,40 @@
 					"response": []
 				},
 				{
+					"name": "Search Recipes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n    recipes(terms: $terms) {\n        title\n        id\n    }\n}",
+								"variables": "{\n\t\"terms\": [\n\t\t\"chicken\",\n\t\t\"dinner\",\n\t\t\"christmas\"\n\t]\n}"
+							}
+						},
+						"url": {
+							"raw": "{{host}}/graphql",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Recipe",
 					"request": {
 						"auth": {

@@ -5,6 +5,7 @@ const express = require('express');
 require('dotenv').config();
 
 const { PORT } = process.env;
+// TODO: throw error if PORT is missing
 
 const app = express();
 
