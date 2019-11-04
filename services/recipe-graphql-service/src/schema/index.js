@@ -18,7 +18,7 @@ const typeDefs = gql`
 
   # Queries
   extend type Query {
-    recipes: [Recipe]
+    recipes(query: [String]): [Recipe]
     recipe(id: ID!): Recipe
   }
 
