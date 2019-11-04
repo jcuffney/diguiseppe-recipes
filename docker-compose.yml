@@ -5,8 +5,6 @@ services:
   # React JS Website
   web:
     build: views/diguisepperecipes.com
-    ports:
-      - "3000:3000"
     volumes:
       - './views/diguisepperecipes.com:/app'
       - '/app/node_modules'
@@ -17,12 +15,35 @@ services:
     networks:
       - development-network
 
+  # Apollo GraphQL Gateway
+  graphql:
+    build: services/graphql-gateway
+    depends_on:
+      - recipe_graphql
+    ports:
+      - '4000:4000'
+    expose:
+      - '4000'
+    networks:
+      - development-network
+
+  # Recipe GraphQL Micro-Service
+  recipe_graphql:
+    build: services/recipe-graphql-service
+    ports:
+      - '4001:4001'
+    expose:
+      - '4001'
+    networks:
+      - development-network
+
   # Nginx Reverse Proxy
   nginx:
     image: nginx:latest
     container_name: development_nginx
     depends_on:
       - web
+      - graphql
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
@@ -32,8 +53,6 @@ services:
       - development-network
     # logging:
     #   driver: none
-
-  # TODO: some sort of data store.
 
 networks: 
   development-network:
