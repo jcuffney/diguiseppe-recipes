@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Label } from 'semantic-ui-react'
 
 class Tags extends Component {
   static propTypes = {
@@ -15,9 +14,9 @@ class Tags extends Component {
     const { tags } = this.props
     return tags.map((str, idx) => {
       return (
-        <Label as='a' color='black' tag key={` tag-${idx}`}>
+        <div key={` tag-${idx}`}>
           {str}
-        </Label>
+        </div>
       )
     })
   }

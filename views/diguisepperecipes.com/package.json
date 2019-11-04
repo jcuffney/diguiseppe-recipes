@@ -25,8 +25,7 @@
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
-    "react-select": "^3.0.8",
-    "semantic-ui-react": "^0.87.3"
+    "react-select": "^3.0.8"
   },
   "jest": {
     "coverageThreshold": {

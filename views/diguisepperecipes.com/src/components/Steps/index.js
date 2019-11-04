@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Header, Grid, Segment, Checkbox, Divider } from 'semantic-ui-react'
 
 class Steps extends Component {
   static propTypes = {
@@ -22,15 +21,13 @@ class Steps extends Component {
     if (!this.props.steps.length) return null
     return (
       <>
-        <Header>Instructions:</Header>
-        <Divider />
-        <Grid stackable columns={1}>
-          <Grid.Column>
-            <Segment>
-              { this.renderStep() }
-            </Segment>
-          </Grid.Column>
-        </Grid>
+        <h1>Instructions:</h1>
+        <hr />
+        <div>
+          <div>
+            { this.renderStep() }
+          </div>
+        </div>
       </>
     )
   }

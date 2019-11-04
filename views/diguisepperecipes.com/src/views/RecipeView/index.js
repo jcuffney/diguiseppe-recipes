@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Header, Container, Icon, Divider } from 'semantic-ui-react'
 import Ingredients from 'components/Ingredients'
 import Steps from 'components/Steps'
 import Tags from 'components/Tags'
@@ -44,26 +43,26 @@ export class RecipeView extends Component {
 
     return (
       <div className='recipe-view transition-wrapper'>
-        <Container>
-          <Header as='h1' className={styles.white}>
+        <div>
+          <h1 as='h1' className={styles.white}>
             <Link to='/'>
               <Icon name='arrow left' />
             </Link>
             { title }
-          </Header>
-          <Header as='h5' className={styles.white}>By: { author }</Header>
+          </h1>
+          <h5 className={styles.white}>By: { author }</h5>
           {duration && (
             <p>
               Cook Time: { duration.time } { duration.unit }
             </p>
           )}
-          <Tags tags={ts} />
+          <div tags={ts} />
           <p>{ description }</p>
-          <Divider />
+          <hr />
           <Ingredients ingredients={ingredients} />
           <Steps steps={steps} />
           <p className={styles.center}>Made with <span className='heart'>&hearts;</span> by Joe Cuffney</p>
-        </Container>
+        </div>
       </div>
     )
   }
