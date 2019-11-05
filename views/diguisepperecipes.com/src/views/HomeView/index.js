@@ -1,40 +1,55 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
+import React, { useState, memo } from 'react'
+// import PropTypes from 'prop-types'
+import { useLazyQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
 import Search from 'components/Search'
 
 import styles from './index.module.sass'
 
-export class HomeView extends Component {
-  static propTypes = {
-    history: PropTypes.object
+const GET_RECIPES = gql`
+  {
+    recipes {
+      id
+      title
+    }
+  }
+`;
+
+export const HomeView = () => {
+
+  const [variables, setVariables] = useState({ terms: [] });
+  const [fetchData, { loading, error, data }] = useLazyQuery(GET_RECIPES, variables);
+
+  document.title = 'DiGuiseppe Recipes'
+
+  // todo: make this actually support mutlple query terms
+  const handleSearch = terms => {
+    setVariables({ terms: [terms] });
+    fetchData();
   }
 
-  static defaultProps = {}
+  if (loading) return <h1>loading</h1>;
+  if (error) console.error(error);
 
-  state = {
-    query: ''
-  }
+  console.log('here', data, variables);
 
-  componentDidMount () {
-    document.title = 'DiGuiseppe Recipes'
-  }
-
-  render () {
-    return (
-      <div className={styles.homeView}>
-        <div>
-          <h1 className={styles.title}>DiGuiseppe Recipes</h1>
-          <Search
-            history={this.props.history}
-            search={() => {}}
-            options={[]}
-          />
-        </div>
-        <p className={styles.credits}>Made with <span className={styles.heart}>&hearts;</span> by Joe Cuffney</p>
+  return (
+    <div className={styles.homeView}>
+      <div>
+        <h1 className={styles.title}>DiGuiseppe Recipes</h1>
+        <Search
+          search={ handleSearch }
+          options={[]}
+        />
       </div>
-    )
-  }
-}
+      <p className={styles.credits}>Made with <span className={styles.heart}>&hearts;</span> by Joe Cuffney</p>
+    </div>
+  )
+};
 
-export default withRouter(HomeView)
+HomeView.propTypes = {};
+
+HomeView.defaultProps = {};
+
+export default memo(HomeView);
