@@ -46,7 +46,7 @@ export class RecipeView extends Component {
         <div>
           <h1 as='h1' className={styles.white}>
             <Link to='/'>
-              <Icon name='arrow left' />
+              <Tags className='arrow left' />
             </Link>
             { title }
           </h1>
