@@ -3,9 +3,9 @@
         "Stack": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateUrl": "https://s3.amazonaws/cf-templates/ecs-cluster/template.json",
+                "TemplateURL": "https://s3.amazonaws.com/com.cuffney.cf-templates/ecs-cluster/template.json",
                 "Parameters": {
-                    "ClusterName": "diguiseppe-recipes"
+                    "ClusterName": "kerfuffle-recipes"
                 }
             }
         }
