@@ -1,13 +1,29 @@
 {
-    "Resources": {
-        "Stack": {
-            "Type": "AWS::CloudFormation::Stack",
-            "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/com.cuffney.cf-templates/ecs-cluster/template.json",
-                "Parameters": {
-                    "ClusterName": "kerfuffle-recipes"
-                }
-            }
-        }
-    }
+	"Parameters": {
+		"ClusterName": {
+			"Type": "String",
+			"Description": "The cluster name"
+		}
+	},
+	"Resources": {
+		"ECSCluster": {
+			"Type": "AWS::ECS::Cluster",
+			"Properties": {
+				"ClusterName": {
+					"Ref": "ClusterName"
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"ClusterName": {
+			"Description": "The Cluster on which to attach tasks.",
+			"Value": {
+				"Ref": "ECSCluster"
+			},
+			"Export": {
+				"Name": { "Ref": "ClusterName" }
+			}
+		}
+	}
 }

@@ -1,0 +1,1 @@
+{"Parameters":{"DashboardBody":{"Type":"String"},"DashboardName":{"Type":"String"}},"Resources":{"Dashboard":{"Type":"AWS::CloudWatch::Dashboard","Properties":{"DashboardName":{"Ref":"DashboardName"},"DashboardBody":"{\"widgets\":[]}"}}},"Outputs":{}}

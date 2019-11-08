@@ -1,9 +1,6 @@
 {
     "Parameters": {
-        "ClusterArn": {
-            "Type": "String",
-            "Default": ""
-        }
+    
     },
     "Resources": {
         "TaskExecutionRole": {

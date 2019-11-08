@@ -1,0 +1,113 @@
+{
+    "Parameters": {
+        "AcmCertificateArn": {
+            "Type": "String"
+        },
+        "DomainName": {
+            "Type": "String"
+        },
+        "HostedZoneId": {
+            "Type": "String"
+        },
+        "ApiSpecBucket": {
+            "Type": "String"
+        },
+        "ApiSpecKey": {
+            "Type": "String",
+            "Default": "openapi.json"
+        }
+    },
+    "Resources": {
+        "RestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+                "Name": { "Ref": "DomainName" },
+                "BodyS3Location": {
+                    "Bucket": { "Ref": "ApiSpecBucket" },
+                    "Key": { "Ref": "ApiSpecKey" }
+                }
+            }
+        },
+        "Deployment": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+                "RestApiId": {
+                    "Ref": "RestApi"
+                }
+            }
+        },
+        "ApiDomainName": {
+            "Type": "AWS::ApiGateway::DomainName",
+            "Properties": {
+                "CertificateArn": {
+                    "Ref": "AcmCertificateArn"
+                },
+                "DomainName": {
+                    "Ref": "DomainName"
+                }
+            }
+        },
+        "BasePathMapping": {
+            "Type": "AWS::ApiGateway::BasePathMapping",
+            "Properties": {
+                "DomainName": {
+                    "Ref": "DomainName"
+                },
+                "RestApiId": {
+                    "Ref": "RestApi"
+                }
+            }
+        },
+        "ApiAccount": {
+            "Type": "AWS::ApiGateway::Account",
+            "Properties": {
+                "CloudWatchRoleArn": {
+                    "Fn::GetAtt": "ApiRole.Arn"
+                }
+            }
+        },
+        "ApiRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                "apigateway.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+                ]
+            }
+        },
+        "RecordSet": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "HostedZoneId": {
+                    "Ref": "HostedZoneId"
+                },
+                "Type": "A",
+                "Name": {
+                    "Ref": "DomainName"
+                },
+                "AliasTarget": {
+                    "DNSName": {
+                        "Fn::GetAtt": "ApiDomainName.DistributionDomainName"
+                    },
+                    "HostedZoneId": "Z2FDTNDATAQYW2"
+                }
+            }
+        }
+    }
+}

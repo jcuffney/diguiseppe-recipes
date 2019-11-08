@@ -1,0 +1,32 @@
+{
+    "Parameters": {
+        "DisplayName": {
+            "Type": "String"
+        },
+        "TopicName": {
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "Topic": {
+            "Type": "AWS::SNS::Topic",
+            "Properties": {
+                "DisplayName": {
+                    "Ref": "DisplayName"
+                },
+                "TopicName": {
+                    "Ref": "TopicName"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "TopicArn": {
+            "Description" : "The ARN of the SNS Topic",
+            "Value" : { "Ref": "Topic" },
+            "Export" : {
+                "Name" : "SnsTopicArn"
+            }
+        }
+    }
+}
