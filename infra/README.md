@@ -1,4 +1,6 @@
-# AWS Patterns Roadmap
+# Infrastructure
+
+## AWS Patterns Roadmap
 
 - [ ] hosted zone
   - [x] hosted zone
@@ -6,22 +8,16 @@
 - [ ] api gateway
   - [x] openapi 3.0
   - [x] hosted documenation (local only)
-  - [ ] authorizer
 - [ ] transactional email
   - [ ] SES domain configuration
   - [ ] sample email
-  - [ ] script to trigger example email
-- [ ] pub-sub
+- [x] pub-sub
   - [x] SNS
-  - [ ] script to publish message to SNS
-- [ ] Cloudwatch Dashboard Base
-  - [ ] 
+- [x] Cloudwatch Dashboard Base
 - VPC
-- DynamoDB
 - lambda (nodejs|python) microservice (ApiGateway Event, SQS)
 - S3 Bucket (media/build artifacts)
 - Authentication via (auth0|okta|cognito)
-- RDS
 - ElasticSearch / Kibana
 - ecs cluster
 - ecs (nodejs|python|php|react|craftcms|jira) microservice
@@ -33,6 +29,7 @@
   - Logging / Auditing
   - XRay
   - AppMesh
+- api gateway authorizer
 
 ## Other Patterns
 

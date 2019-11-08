@@ -17,32 +17,9 @@
                     "Ref": "Name"
                 }
             }
-        },
-        "Certificate": {
-            "Type": "AWS::CertificateManager::Certificate",
-            "Properties": {
-                "DomainName": {
-                    "Ref": "Name"
-                },
-                "SubjectAlternativeNames": [
-                    { "Fn::Sub": "*.${Name}" }
-                ],
-                "Tags": [],
-                "ValidationMethod": "DNS",
-                "DomainValidationOptions": [{
-                    "DomainName": { "Ref": "Name"},
-                    "ValidationDomain": { "Ref": "Name" }
-                }]
-            }
         }
     },
     "Outputs": {
-        "CertificateArn": {
-            "Description" : "The ARN of the certificate",
-            "Value" : { "Ref": "Certificate" },
-            "Export" : {
-                "Name" : "CertificateArn"
-            }
-        }
+    
     }
 }
