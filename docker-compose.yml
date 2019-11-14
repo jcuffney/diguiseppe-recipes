@@ -42,15 +42,28 @@ services:
       - '4001'
     networks:
       - development-network
+    environment:
+      - DB_URL=http://db:8000
 
-  # recipe_table:
-  #   image: amazon/dynamodb-local:latest
-  #   ports:
-  #     - '8000:8080'
-  #   expose:
-  #     - 8000
-  #   networks:
-  #     - development-network
+  db:
+      image: amazon/dynamodb-local
+      entrypoint: java
+      command: '-jar DynamoDBLocal.jar -sharedDb -dbPath /data'
+      expose:
+          - 8000
+      ports:
+          - 8000:8000
+      volumes:
+          - ./.db-files/:/data
+
+  db.gui:
+      image: aaronshaf/dynamodb-admin
+      expose:
+          - 8001
+      ports:
+          - 8001:8001
+      environment:
+          - DYNAMO_ENDPOINT=http://db:8000
 
   # Nginx Reverse Proxy
   nginx:
